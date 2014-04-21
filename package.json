@@ -1,0 +1,30 @@
+{
+  "name": "pitstop",
+  "version": "0.1.2",
+  "description": "An express middleware for creating conditional groups of other middleware.",
+  "main": "pitstop.js",
+  "scripts": {
+    "test": "istanbul cover nodeunit -- tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChiperSoft/pitstopjs.git"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "conditional",
+    "grouping",
+    "connect"
+  ],
+  "author": "Jarvis Badgley <chiper@chipersoft.com> (http://chipersoft.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ChiperSoft/pitstopjs/issues"
+  },
+  "homepage": "https://github.com/ChiperSoft/pitstopjs",
+  "devDependencies": {
+    "nodeunit": "~0.8.2",
+    "istanbul": "^0.2.6"
+  }
+}
