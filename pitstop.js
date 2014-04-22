@@ -73,6 +73,8 @@ module.exports = function pitstop (middlewares, precondition) {
 		var i,c,arg;
 		for (i = 0, c = arguments.length; i<c; i++) {
 			arg = arguments[i];
+
+			if (!arg) {continue;}
 			
 			if (Array.isArray(arg)) {
 				use.apply(this, arg);
