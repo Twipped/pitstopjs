@@ -6,11 +6,11 @@
  * Released under an MIT license.
  */
 
-module.exports = function () {
+module.exports = function pitstop (middlewares, precondition) {
 	var stack = [];
 	var condition;
 
-	var pitstop = function (req, res, finished) {
+	var pit = function (req, res, finished) {
 		var step = -1, len = stack.length;
 
 		// Create the iterator that will traverse the stack
@@ -69,7 +69,7 @@ module.exports = function () {
 		}
 	};
 
-	pitstop.use = function use (middleware) {
+	pit.use = function use (middleware) {
 		var i,c,arg;
 		for (i = 0, c = arguments.length; i<c; i++) {
 			arg = arguments[i];
@@ -90,10 +90,26 @@ module.exports = function () {
 		return this;
 	};
 
-	pitstop.condition = function (fn) {
+	pit.condition = function (fn) {
 		condition = fn;
 		return this;
 	};
 
-	return pitstop;
+	pit.execute = function (req, res, next) {
+		// Save the current condition and make the condition truthy.
+		var prevCondition = condition;
+		condition = true;
+
+		// Run the stack.
+		pit.apply(this, arguments);
+		
+		// Change condition back.
+		condition = prevCondition;
+	};
+
+	// Load any default values defined on the constructor
+	pit.use(middlewares);
+	pit.condition(precondition);
+
+	return pit;
 };
