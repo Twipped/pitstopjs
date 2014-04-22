@@ -1,6 +1,6 @@
 {
   "name": "pitstop",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An express middleware for creating conditional groups of other middleware.",
   "main": "pitstop.js",
   "scripts": {
