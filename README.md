@@ -1,18 +1,31 @@
-#pitstop.js
+# pitstop.js DEPRECATED
 
 An express middleware for creating conditional groups of other middleware.
 
-##Installation
+**This repository is no longer maintained and the library has been deprecated**
+
+In modern express development this can be accomplished by putting your conditional middleware into an Express Router and only invoking that router for your condition, like so:
+
+```js
+app.use((req, res, next) => {
+  if (someCondition) {
+    return myRouter(req, res, next);
+  }
+  next();
+}
+```
+
+## Installation
 
 NPM: `npm install pitstop`
 
-##Usage
+## Usage
 
-###`pitstop([crew, [conditionFunction]])`
+### `pitstop([crew, [conditionFunction]])`
 
 Creates the pitstop.  The initial middleware crew and run condition can be passed directly as arguments.  Returns the `pit` middleware function object.
 
-###`pit.use(middleware)`
+### `pit.use(middleware)`
 
 Adds a middleware to the pit crew.  Middleware can be added individually, as multiple arguments, or in an array.
 
@@ -26,17 +39,17 @@ pit.use([
 
 Error handlers added to the pit will only catch errors that occur within the pit.  If no error handler is defined, errors will bubble up to Express.
 
-###`pit.condition(null|function|truthy)`
+### `pit.condition(null|function|truthy)`
 
 Defines the condition for if the pit crew should run.  If the passed value is `undefined`, `null` or a truthy value, the crew will always run. If the passed value is false, the pit will be bypassed.
 
 If a function is provided, the function will be executed as a middleware and receive the request, response and callback arguments.  Calling the callback with false or an error will bypass the pit. Calling without any value run the pit crew.
 
-###`pit.execute`
+### `pit.execute`
 
 `pit.execute` is a bypass middleware which will skip the condition and always run the pit crew.
 
-##Example
+## Example
 
 The following example will only run session handling and user loading if a session cookie already exists on the request. Said cookie will only be created when the user logs into the site.
 
@@ -94,10 +107,3 @@ app.get('/', function (req, res) {
 });
 
 ```
-
-
-##Running Unit Tests
-
-From inside the repository root, run `npm install` to install the test dependencies.
-
-Run `npm test` to execute the complete test suite.
